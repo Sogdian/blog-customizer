@@ -45,7 +45,6 @@ export const ArticleParamsForm = (props: FormStates) => {
 		contentWidthArrState,
 		setContentWidthArrState,
 		onResetClick,
-		onSubmitClick,
 	} = props;
 	const [isOpen, setOpen] = useState(false);
 
@@ -72,12 +71,16 @@ export const ArticleParamsForm = (props: FormStates) => {
 	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
 		setContentWidthArrState(contentWidthArr);
 	};
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		props.onSubmitClick();
+	};
 
 	return (
 		<>
 			<ArrowButton onClick={handleClick} state={isOpen} />
 			<aside className={asideContainerStyle}>
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
@@ -119,7 +122,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' onClick={onResetClick} />
-						<Button title='Применить' type='submit' onClick={onSubmitClick} />
+						<Button title='Применить' type='submit' />
 					</div>
 				</form>
 			</aside>
