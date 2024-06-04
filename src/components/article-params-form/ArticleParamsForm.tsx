@@ -12,10 +12,11 @@ import {
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { RadioGroup } from 'components/radio-group';
 import { Separator } from 'components/separator';
+import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClose';
 
 type FormStates = {
 	fontState: OptionType;
@@ -46,11 +47,24 @@ export const ArticleParamsForm = (props: FormStates) => {
 		setContentWidthArrState,
 		onResetClick,
 	} = props;
+
 	const [isOpen, setOpen] = useState(false);
+	const ref = useRef<HTMLDivElement | null>(null);
 
 	const handleClick = () => {
 		return setOpen(!isOpen);
 	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	useOutsideClickClose({
+		isOpen,
+		onChange: setOpen,
+		onClose: handleClose,
+		rootRef: ref,
+	});
 
 	const asideContainerStyle = clsx(styles.container, {
 		[styles.container_open]: isOpen,
@@ -79,7 +93,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 	return (
 		<>
 			<ArrowButton onClick={handleClick} state={isOpen} />
-			<aside className={asideContainerStyle}>
+			<aside className={asideContainerStyle} ref={ref}>
 				<form className={styles.form} onSubmit={handleSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>
 						Задайте параметры
