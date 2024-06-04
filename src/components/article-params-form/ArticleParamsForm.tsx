@@ -3,6 +3,7 @@ import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
 import {
+	fontColors,
 	fontFamilyOptions,
 	fontSizeOptions,
 	OptionType,
@@ -12,16 +13,26 @@ import styles from './ArticleParamsForm.module.scss';
 import { Dispatch, SetStateAction, useState } from 'react';
 import clsx from 'clsx';
 import { RadioGroup } from 'components/radio-group';
+import { Separator } from 'components/separator';
 
 type FormStates = {
 	fontState: OptionType;
 	setFontState: Dispatch<SetStateAction<OptionType>>;
 	fontSizeState: OptionType;
 	setFontSizeState: Dispatch<SetStateAction<OptionType>>;
+	fontColorState: OptionType;
+	setFontColorState: Dispatch<SetStateAction<OptionType>>;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
-	const { fontState, setFontState, fontSizeState, setFontSizeState } = props;
+	const {
+		fontState,
+		setFontState,
+		fontSizeState,
+		setFontSizeState,
+		fontColorState,
+		setFontColorState,
+	} = props;
 	const [isOpen, setOpen] = useState(false);
 
 	const handleClick = () => {
@@ -37,6 +48,9 @@ export const ArticleParamsForm = (props: FormStates) => {
 	};
 	const handleFontSizeOnChange = (fontSize: OptionType) => {
 		setFontSizeState(fontSize);
+	};
+	const handleFontColorChange = (fontColor: OptionType) => {
+		setFontColorState(fontColor);
 	};
 
 	return (
@@ -61,6 +75,13 @@ export const ArticleParamsForm = (props: FormStates) => {
 						onChange={handleFontSizeOnChange}
 						title='размер шрифта'
 					/>
+					<Select
+						selected={fontColorState}
+						options={fontColors}
+						onChange={handleFontColorChange}
+						title='цвет шрифта'
+					/>
+					<Separator />
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
 						<Button title='Применить' type='submit' />
