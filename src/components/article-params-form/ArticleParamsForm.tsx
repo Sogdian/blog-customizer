@@ -3,6 +3,7 @@ import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
 import {
+	backgroundColors,
 	fontColors,
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -22,6 +23,8 @@ type FormStates = {
 	setFontSizeState: Dispatch<SetStateAction<OptionType>>;
 	fontColorState: OptionType;
 	setFontColorState: Dispatch<SetStateAction<OptionType>>;
+	backgroundColorState: OptionType;
+	setBackgroundColorState: Dispatch<SetStateAction<OptionType>>;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
@@ -32,6 +35,8 @@ export const ArticleParamsForm = (props: FormStates) => {
 		setFontSizeState,
 		fontColorState,
 		setFontColorState,
+		backgroundColorState,
+		setBackgroundColorState,
 	} = props;
 	const [isOpen, setOpen] = useState(false);
 
@@ -51,6 +56,9 @@ export const ArticleParamsForm = (props: FormStates) => {
 	};
 	const handleFontColorChange = (fontColor: OptionType) => {
 		setFontColorState(fontColor);
+	};
+	const handleBackgroundColorChange = (backgroundColor: OptionType) => {
+		setBackgroundColorState(backgroundColor);
 	};
 
 	return (
@@ -82,6 +90,12 @@ export const ArticleParamsForm = (props: FormStates) => {
 						title='цвет шрифта'
 					/>
 					<Separator />
+					<Select
+						selected={backgroundColorState}
+						options={backgroundColors}
+						onChange={handleBackgroundColorChange}
+						title='цвет фона'
+					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
 						<Button title='Применить' type='submit' />
