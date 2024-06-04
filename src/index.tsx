@@ -2,8 +2,8 @@ import { createRoot } from 'react-dom/client';
 import { StrictMode, CSSProperties, useState } from 'react';
 import clsx from 'clsx';
 
-import { Article } from './components/article/Article';
-import { ArticleParamsForm } from './components/article-params-form/ArticleParamsForm';
+import { Article } from 'components/article';
+import { ArticleParamsForm } from 'components/article-params-form';
 import { defaultArticleState, OptionType } from './constants/articleProps';
 
 import './styles/index.scss';
@@ -29,7 +29,7 @@ const App = () => {
 		defaultArticleState.contentWidth
 	);
 
-	const resetFormState = () => {
+	const handleResetStyles = () => {
 		setFontState(defaultArticleState.fontFamilyOption);
 		setFontSizeState(defaultArticleState.fontSizeOption);
 		setFontColorState(defaultArticleState.fontColor);
@@ -37,16 +37,34 @@ const App = () => {
 		setContentWidthArrState(defaultArticleState.contentWidth);
 	};
 
+	const [stylesSelected, setStylesSelected] = useState({
+		fontFamily: defaultArticleState.fontFamilyOption.value,
+		fontSize: defaultArticleState.fontSizeOption.value,
+		fontColor: defaultArticleState.fontColor.value,
+		backgroundColor: defaultArticleState.backgroundColor.value,
+		contentWidth: defaultArticleState.contentWidth.value,
+	});
+
+	const handleFormSubmit = () => {
+		setStylesSelected({
+			fontFamily: fontState.value,
+			fontSize: fontSizeState.value,
+			fontColor: fontColorState.value,
+			backgroundColor: backgroundColorState.value,
+			contentWidth: contentWidthArrState.value,
+		});
+	};
+
 	return (
 		<div
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': stylesSelected.fontFamily,
+					'--font-size': stylesSelected.fontSize,
+					'--font-color': stylesSelected.fontColor,
+					'--container-width': stylesSelected.contentWidth,
+					'--bg-color': stylesSelected.backgroundColor,
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
@@ -60,8 +78,8 @@ const App = () => {
 				setBackgroundColorState={setBackgroundColorState}
 				contentWidthArrState={contentWidthArrState}
 				setContentWidthArrState={setContentWidthArrState}
-				onResetClick={resetFormState}
-				onSubmitClick={}
+				onResetClick={handleResetStyles}
+				onSubmitClick={handleFormSubmit}
 			/>
 			<Article />
 		</div>
