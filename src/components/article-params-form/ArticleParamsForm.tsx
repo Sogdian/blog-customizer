@@ -12,7 +12,7 @@ import {
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
-import { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import clsx from 'clsx';
 import { RadioGroup } from 'components/radio-group';
 import { Separator } from 'components/separator';
@@ -71,7 +71,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
 		setContentWidthArrState(contentWidthArr);
 	};
-	const handleSubmit = (event) => {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		props.onSubmitClick();
 	};
