@@ -35,6 +35,14 @@ const App = () => {
 		setFontColorState(defaultArticleState.fontColor);
 		setBackgroundColorState(defaultArticleState.backgroundColor);
 		setContentWidthArrState(defaultArticleState.contentWidth);
+
+		setStylesSelected({
+			fontFamily: defaultArticleState.fontFamilyOption.value,
+			fontSize: defaultArticleState.fontSizeOption.value,
+			fontColor: defaultArticleState.fontColor.value,
+			backgroundColor: defaultArticleState.backgroundColor.value,
+			contentWidth: defaultArticleState.contentWidth.value,
+		});
 	};
 
 	const [stylesSelected, setStylesSelected] = useState({
