@@ -19,9 +19,21 @@ const App = () => {
 	const [fontSizeState, setFontSizeState] = useState<OptionType>(
 		defaultArticleState.fontSizeOption
 	);
+	const [fontColorState, setFontColorState] = useState<OptionType>(
+		defaultArticleState.fontColor
+	);
+	const [backgroundColorState, setBackgroundColorState] = useState<OptionType>(
+		defaultArticleState.backgroundColor
+	);
+	const [contentWidthArrState, setContentWidthArrState] = useState<OptionType>(
+		defaultArticleState.contentWidth
+	);
 
 	setFontState(fontState); //удалить
 	setFontSizeState(fontSizeState); //удалить
+	setFontColorState(fontColorState); //удалить
+	setBackgroundColorState(backgroundColorState); //удалить
+	setContentWidthArrState(contentWidthArrState); //удалить
 
 	return (
 		<div
@@ -40,6 +52,14 @@ const App = () => {
 				setFontState={setFontState}
 				fontSizeState={fontSizeState}
 				setFontSizeState={setFontSizeState}
+				fontColorState={fontColorState}
+				setFontColorState={setFontColorState}
+				backgroundColorState={backgroundColorState}
+				setBackgroundColorState={setBackgroundColorState}
+				contentWidthArrState={contentWidthArrState}
+				setContentWidthArrState={setContentWidthArrState}
+				onResetClick={}
+				onSubmitClick={}
 			/>
 			<Article />
 		</div>
