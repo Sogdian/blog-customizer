@@ -2,19 +2,26 @@ import { ArrowButton } from 'components/arrow-button';
 import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
-import { fontFamilyOptions, OptionType } from 'src/constants/articleProps';
+import {
+	fontFamilyOptions,
+	fontSizeOptions,
+	OptionType,
+} from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
 import { Dispatch, SetStateAction, useState } from 'react';
 import clsx from 'clsx';
+import { RadioGroup } from 'components/radio-group';
 
 type FormStates = {
 	fontState: OptionType;
 	setFontState: Dispatch<SetStateAction<OptionType>>;
+	fontSizeState: OptionType;
+	setFontSizeState: Dispatch<SetStateAction<OptionType>>;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
-	const { fontState, setFontState } = props;
+	const { fontState, setFontState, fontSizeState, setFontSizeState } = props;
 	const [isOpen, setOpen] = useState(false);
 
 	const handleClick = () => {
@@ -27,6 +34,9 @@ export const ArticleParamsForm = (props: FormStates) => {
 
 	const handleFontOnChange = (font: OptionType) => {
 		setFontState(font);
+	};
+	const handleFontSizeOnChange = (fontSize: OptionType) => {
+		setFontSizeState(fontSize);
 	};
 
 	return (
@@ -41,10 +51,15 @@ export const ArticleParamsForm = (props: FormStates) => {
 						selected={fontState}
 						options={fontFamilyOptions}
 						placeholder='Open Sans'
-						onChange={(font: OptionType) => {
-							handleFontOnChange(font);
-						}}
+						onChange={handleFontOnChange}
 						title='шрифт'
+					/>
+					<RadioGroup
+						name='fontSize'
+						options={fontSizeOptions}
+						selected={fontSizeState}
+						onChange={handleFontSizeOnChange}
+						title='размер шрифта'
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
