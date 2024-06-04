@@ -3,8 +3,9 @@ import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
 import {
-	backgroundColors,
-	fontColors,
+	backgroundColorsOptions,
+	contentWidthArrOptions,
+	fontColorsOptions,
 	fontFamilyOptions,
 	fontSizeOptions,
 	OptionType,
@@ -25,6 +26,8 @@ type FormStates = {
 	setFontColorState: Dispatch<SetStateAction<OptionType>>;
 	backgroundColorState: OptionType;
 	setBackgroundColorState: Dispatch<SetStateAction<OptionType>>;
+	contentWidthArrState: OptionType;
+	setContentWidthArrState: Dispatch<SetStateAction<OptionType>>;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
@@ -37,6 +40,8 @@ export const ArticleParamsForm = (props: FormStates) => {
 		setFontColorState,
 		backgroundColorState,
 		setBackgroundColorState,
+		contentWidthArrState,
+		setContentWidthArrState,
 	} = props;
 	const [isOpen, setOpen] = useState(false);
 
@@ -48,17 +53,20 @@ export const ArticleParamsForm = (props: FormStates) => {
 		[styles.container_open]: isOpen,
 	});
 
-	const handleFontOnChange = (font: OptionType) => {
-		setFontState(font);
+	const handleFontOnChange = (fontFamily: OptionType) => {
+		setFontState(fontFamily);
 	};
 	const handleFontSizeOnChange = (fontSize: OptionType) => {
 		setFontSizeState(fontSize);
 	};
-	const handleFontColorChange = (fontColor: OptionType) => {
-		setFontColorState(fontColor);
+	const handleFontColorChange = (fontColors: OptionType) => {
+		setFontColorState(fontColors);
 	};
-	const handleBackgroundColorChange = (backgroundColor: OptionType) => {
-		setBackgroundColorState(backgroundColor);
+	const handleBackgroundColorChange = (backgroundColors: OptionType) => {
+		setBackgroundColorState(backgroundColors);
+	};
+	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
+		setContentWidthArrState(contentWidthArr);
 	};
 
 	return (
@@ -85,16 +93,22 @@ export const ArticleParamsForm = (props: FormStates) => {
 					/>
 					<Select
 						selected={fontColorState}
-						options={fontColors}
+						options={fontColorsOptions}
 						onChange={handleFontColorChange}
 						title='цвет шрифта'
 					/>
 					<Separator />
 					<Select
 						selected={backgroundColorState}
-						options={backgroundColors}
+						options={backgroundColorsOptions}
 						onChange={handleBackgroundColorChange}
 						title='цвет фона'
+					/>
+					<Select
+						selected={contentWidthArrState}
+						options={contentWidthArrOptions}
+						onChange={handleContentWidthArrChange}
+						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
