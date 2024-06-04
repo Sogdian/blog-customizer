@@ -16,7 +16,12 @@ const App = () => {
 	const [fontState, setFontState] = useState<OptionType>(
 		defaultArticleState.fontFamilyOption
 	);
+	const [fontSizeState, setFontSizeState] = useState<OptionType>(
+		defaultArticleState.fontSizeOption
+	);
+
 	setFontState(fontState); //удалить
+	setFontSizeState(fontSizeState); //удалить
 
 	return (
 		<div
@@ -30,7 +35,12 @@ const App = () => {
 					'--bg-color': defaultArticleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm fontSelectState={fontState} />
+			<ArticleParamsForm
+				fontState={fontState}
+				setFontState={setFontState}
+				fontSizeState={fontSizeState}
+				setFontSizeState={setFontSizeState}
+			/>
 			<Article />
 		</div>
 	);
