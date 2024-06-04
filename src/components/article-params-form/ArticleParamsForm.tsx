@@ -28,6 +28,8 @@ type FormStates = {
 	setBackgroundColorState: Dispatch<SetStateAction<OptionType>>;
 	contentWidthArrState: OptionType;
 	setContentWidthArrState: Dispatch<SetStateAction<OptionType>>;
+	onResetClick: () => void;
+	onSubmitClick: () => void;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
@@ -42,6 +44,8 @@ export const ArticleParamsForm = (props: FormStates) => {
 		setBackgroundColorState,
 		contentWidthArrState,
 		setContentWidthArrState,
+		onResetClick,
+		onSubmitClick,
 	} = props;
 	const [isOpen, setOpen] = useState(false);
 
@@ -94,6 +98,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 					<Select
 						selected={fontColorState}
 						options={fontColorsOptions}
+						placeholder='Черный>'
 						onChange={handleFontColorChange}
 						title='цвет шрифта'
 					/>
@@ -101,18 +106,20 @@ export const ArticleParamsForm = (props: FormStates) => {
 					<Select
 						selected={backgroundColorState}
 						options={backgroundColorsOptions}
+						placeholder='Белый>'
 						onChange={handleBackgroundColorChange}
 						title='цвет фона'
 					/>
 					<Select
 						selected={contentWidthArrState}
 						options={contentWidthArrOptions}
+						placeholder='Широкий'
 						onChange={handleContentWidthArrChange}
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' />
-						<Button title='Применить' type='submit' />
+						<Button title='Сбросить' type='reset' onClick={onResetClick} />
+						<Button title='Применить' type='submit' onClick={onSubmitClick} />
 					</div>
 				</form>
 			</aside>
