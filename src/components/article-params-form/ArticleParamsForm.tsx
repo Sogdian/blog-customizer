@@ -52,20 +52,17 @@ export const ArticleParamsForm = (props: FormStates) => {
 	const ref = useRef<HTMLDivElement | null>(null);
 
 	const handleClick = () => {
-		console.log('handleClick ' + isOpen);
 		return setOpen(!isOpen);
 	};
 
 	const handleClose = () => {
-		console.log('handleClose ' + isOpen);
-		// setOpen(false);
-		setOpen(!isOpen);
+		setOpen(false);
 	};
 
 	useOutsideClickClose({
 		isOpen,
 		onChange: handleClose,
-		// onClose: handleClose,
+		onClose: handleClose,
 		rootRef: ref,
 	});
 
