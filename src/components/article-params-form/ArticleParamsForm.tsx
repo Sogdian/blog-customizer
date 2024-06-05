@@ -62,7 +62,6 @@ export const ArticleParamsForm = (props: FormStates) => {
 	useOutsideClickClose({
 		isOpen,
 		onChange: handleClose,
-		onClose: handleClose,
 		rootRef: ref,
 	});
 
