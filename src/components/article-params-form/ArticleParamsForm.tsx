@@ -22,13 +22,7 @@ import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClo
 
 type FormStates = {
 	onResetClick: () => void;
-	onSubmitClick: (p: {
-		backgroundColor: string;
-		fontFamily: string;
-		contentWidth: string;
-		fontSize: string;
-		fontColor: string;
-	}) => void;
+	onSubmitClick: (p: ArticleStateType) => void;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
@@ -44,13 +38,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 
 	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		onSubmitClick({
-			fontFamily: state.fontFamilyOption.value,
-			fontSize: state.fontSizeOption.value,
-			fontColor: state.fontColor.value,
-			backgroundColor: state.backgroundColor.value,
-			contentWidth: state.contentWidth.value,
-		});
+		onSubmitClick(state);
 	};
 
 	const handleResetStyles = () => {
