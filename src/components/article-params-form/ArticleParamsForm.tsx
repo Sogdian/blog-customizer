@@ -5,6 +5,7 @@ import { Select } from '../select';
 import {
 	backgroundColorsOptions,
 	contentWidthArrOptions,
+	defaultArticleState,
 	fontColorsOptions,
 	fontFamilyOptions,
 	fontSizeOptions,
@@ -12,41 +13,92 @@ import {
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
-import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { RadioGroup } from 'components/radio-group';
 import { Separator } from 'components/separator';
 import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClose';
 
 type FormStates = {
-	fontState: OptionType;
-	setFontState: Dispatch<SetStateAction<OptionType>>;
-	fontSizeState: OptionType;
-	setFontSizeState: Dispatch<SetStateAction<OptionType>>;
-	fontColorState: OptionType;
-	setFontColorState: Dispatch<SetStateAction<OptionType>>;
-	backgroundColorState: OptionType;
-	setBackgroundColorState: Dispatch<SetStateAction<OptionType>>;
-	contentWidthArrState: OptionType;
-	setContentWidthArrState: Dispatch<SetStateAction<OptionType>>;
+	stylesSelected: {
+		backgroundColor: string;
+		fontFamily: string;
+		contentWidth: string;
+		fontSize: string;
+		fontColor: string;
+	};
 	onResetClick: () => void;
-	onSubmitClick: () => void;
+	onSubmitClick: (p: {
+		backgroundColor: string;
+		fontFamily: string;
+		contentWidth: string;
+		fontSize: string;
+		fontColor: string;
+	}) => void;
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
-	const {
-		fontState,
-		setFontState,
-		fontSizeState,
-		setFontSizeState,
-		fontColorState,
-		setFontColorState,
-		backgroundColorState,
-		setBackgroundColorState,
-		contentWidthArrState,
-		setContentWidthArrState,
-		onResetClick,
-	} = props;
+	const { stylesSelected, onResetClick, onSubmitClick } = props;
+
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		onSubmitClick({
+			fontFamily: fontState.value,
+			fontSize: fontSizeState.value,
+			fontColor: fontColorState.value,
+			backgroundColor: backgroundColorState.value,
+			contentWidth: contentWidthArrState.value,
+		});
+	};
+
+	const handleResetStyles = () => {
+		onResetClick();
+		setFontState(defaultArticleState.fontFamilyOption);
+		setFontSizeState(defaultArticleState.fontSizeOption);
+		setFontColorState(defaultArticleState.fontColor);
+		setBackgroundColorState(defaultArticleState.backgroundColor);
+		setContentWidthArrState(defaultArticleState.contentWidth);
+	};
+
+	const [fontState, setFontState] = useState<OptionType>(
+		defaultArticleState.fontFamilyOption
+	);
+	const [fontSizeState, setFontSizeState] = useState<OptionType>(
+		defaultArticleState.fontSizeOption
+	);
+	const [fontColorState, setFontColorState] = useState<OptionType>(
+		defaultArticleState.fontColor
+	);
+	const [backgroundColorState, setBackgroundColorState] = useState<OptionType>(
+		defaultArticleState.backgroundColor
+	);
+	const [contentWidthArrState, setContentWidthArrState] = useState<OptionType>(
+		defaultArticleState.contentWidth
+	);
+
+	const handleFontOnChange = (fontFamily: OptionType) => {
+		setFontState(fontFamily);
+	};
+	const handleFontSizeOnChange = (fontSize: OptionType) => {
+		setFontSizeState(fontSize);
+	};
+	const handleFontColorChange = (fontColors: OptionType) => {
+		setFontColorState(fontColors);
+	};
+	const handleBackgroundColorChange = (backgroundColors: OptionType) => {
+		setBackgroundColorState(backgroundColors);
+	};
+	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
+		setContentWidthArrState(contentWidthArr);
+	};
+
+	useEffect(() => {
+		setFontState(fontState);
+		setFontSizeState(fontSizeState);
+		setFontColorState(fontColorState);
+		setBackgroundColorState(backgroundColorState);
+		setContentWidthArrState(contentWidthArrState);
+	}, [stylesSelected]);
 
 	const [isOpen, setOpen] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -68,26 +120,6 @@ export const ArticleParamsForm = (props: FormStates) => {
 	const asideContainerStyle = clsx(styles.container, {
 		[styles.container_open]: isOpen,
 	});
-
-	const handleFontOnChange = (fontFamily: OptionType) => {
-		setFontState(fontFamily);
-	};
-	const handleFontSizeOnChange = (fontSize: OptionType) => {
-		setFontSizeState(fontSize);
-	};
-	const handleFontColorChange = (fontColors: OptionType) => {
-		setFontColorState(fontColors);
-	};
-	const handleBackgroundColorChange = (backgroundColors: OptionType) => {
-		setBackgroundColorState(backgroundColors);
-	};
-	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
-		setContentWidthArrState(contentWidthArr);
-	};
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-		event.preventDefault();
-		props.onSubmitClick();
-	};
 
 	return (
 		<>
@@ -134,7 +166,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' type='reset' onClick={onResetClick} />
+						<Button title='Сбросить' type='reset' onClick={handleResetStyles} />
 						<Button title='Применить' type='submit' />
 					</div>
 				</form>
