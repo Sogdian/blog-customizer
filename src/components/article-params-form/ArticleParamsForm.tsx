@@ -14,20 +14,13 @@ import {
 } from 'src/constants/articleProps';
 
 import styles from './ArticleParamsForm.module.scss';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import clsx from 'clsx';
 import { RadioGroup } from 'components/radio-group';
 import { Separator } from 'components/separator';
 import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClose';
 
 type FormStates = {
-	stylesSelected: {
-		fontFamily: string;
-		fontSize: string;
-		fontColor: string;
-		backgroundColor: string;
-		contentWidth: string;
-	};
 	onResetClick: () => void;
 	onSubmitClick: (p: {
 		backgroundColor: string;
@@ -39,7 +32,7 @@ type FormStates = {
 };
 
 export const ArticleParamsForm = (props: FormStates) => {
-	const { stylesSelected, onResetClick, onSubmitClick } = props;
+	const { onResetClick, onSubmitClick } = props;
 
 	const [state, setState] = useState(defaultArticleState);
 
@@ -65,10 +58,6 @@ export const ArticleParamsForm = (props: FormStates) => {
 		onResetClick();
 		setState(defaultArticleState);
 	};
-
-	useEffect(() => {
-		setState(state);
-	}, [stylesSelected]);
 
 	const [isOpen, setOpen] = useState(false);
 	const ref = useRef<HTMLDivElement | null>(null);

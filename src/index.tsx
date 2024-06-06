@@ -56,7 +56,6 @@ const App = () => {
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
-				stylesSelected={stylesSelected}
 				onResetClick={handleResetStyles}
 				onSubmitClick={handleFormSubmit}
 			/>
