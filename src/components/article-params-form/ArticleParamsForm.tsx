@@ -3,6 +3,7 @@ import { Button } from 'components/button';
 import { Text } from '../text';
 import { Select } from '../select';
 import {
+	ArticleStateType,
 	backgroundColorsOptions,
 	contentWidthArrOptions,
 	defaultArticleState,
@@ -40,64 +41,33 @@ type FormStates = {
 export const ArticleParamsForm = (props: FormStates) => {
 	const { stylesSelected, onResetClick, onSubmitClick } = props;
 
+	const [state, setState] = useState(defaultArticleState);
+
+	const handleOnChange = (field: keyof ArticleStateType) => {
+		return (value: OptionType) => {
+			setState((prevState) => ({ ...prevState, [field]: value }));
+		};
+	};
+
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		onSubmitClick({
-			fontFamily: fontState.value,
-			fontSize: fontSizeState.value,
-			fontColor: fontColorState.value,
-			backgroundColor: backgroundColorState.value,
-			contentWidth: contentWidthArrState.value,
+			fontFamily: state.fontFamilyOption.value,
+			fontSize: state.fontSizeOption.value,
+			fontColor: state.fontColor.value,
+			backgroundColor: state.backgroundColor.value,
+			contentWidth: state.contentWidth.value,
 		});
+		setState(state);
 	};
 
 	const handleResetStyles = () => {
 		onResetClick();
-		setFontState(defaultArticleState.fontFamilyOption);
-		setFontSizeState(defaultArticleState.fontSizeOption);
-		setFontColorState(defaultArticleState.fontColor);
-		setBackgroundColorState(defaultArticleState.backgroundColor);
-		setContentWidthArrState(defaultArticleState.contentWidth);
-	};
-
-	const [fontState, setFontState] = useState<OptionType>(
-		defaultArticleState.fontFamilyOption
-	);
-	const [fontSizeState, setFontSizeState] = useState<OptionType>(
-		defaultArticleState.fontSizeOption
-	);
-	const [fontColorState, setFontColorState] = useState<OptionType>(
-		defaultArticleState.fontColor
-	);
-	const [backgroundColorState, setBackgroundColorState] = useState<OptionType>(
-		defaultArticleState.backgroundColor
-	);
-	const [contentWidthArrState, setContentWidthArrState] = useState<OptionType>(
-		defaultArticleState.contentWidth
-	);
-
-	const handleFontOnChange = (fontFamily: OptionType) => {
-		setFontState(fontFamily);
-	};
-	const handleFontSizeOnChange = (fontSize: OptionType) => {
-		setFontSizeState(fontSize);
-	};
-	const handleFontColorChange = (fontColors: OptionType) => {
-		setFontColorState(fontColors);
-	};
-	const handleBackgroundColorChange = (backgroundColors: OptionType) => {
-		setBackgroundColorState(backgroundColors);
-	};
-	const handleContentWidthArrChange = (contentWidthArr: OptionType) => {
-		setContentWidthArrState(contentWidthArr);
+		setState(defaultArticleState);
 	};
 
 	useEffect(() => {
-		setFontState(fontState);
-		setFontSizeState(fontSizeState);
-		setFontColorState(fontColorState);
-		setBackgroundColorState(backgroundColorState);
-		setContentWidthArrState(contentWidthArrState);
+		setState(state);
 	}, [stylesSelected]);
 
 	const [isOpen, setOpen] = useState(false);
@@ -130,39 +100,39 @@ export const ArticleParamsForm = (props: FormStates) => {
 						Задайте параметры
 					</Text>
 					<Select
-						selected={fontState}
+						selected={state.fontFamilyOption}
 						options={fontFamilyOptions}
 						placeholder='Open Sans'
-						onChange={handleFontOnChange}
+						onChange={handleOnChange('fontFamilyOption')}
 						title='шрифт'
 					/>
 					<RadioGroup
+						selected={state.fontSizeOption}
 						name='fontSize'
 						options={fontSizeOptions}
-						selected={fontSizeState}
-						onChange={handleFontSizeOnChange}
+						onChange={handleOnChange('fontSizeOption')}
 						title='размер шрифта'
 					/>
 					<Select
-						selected={fontColorState}
+						selected={state.fontColor}
 						options={fontColorsOptions}
 						placeholder='Черный>'
-						onChange={handleFontColorChange}
+						onChange={handleOnChange('fontColor')}
 						title='цвет шрифта'
 					/>
 					<Separator />
 					<Select
-						selected={backgroundColorState}
+						selected={state.backgroundColor}
 						options={backgroundColorsOptions}
 						placeholder='Белый>'
-						onChange={handleBackgroundColorChange}
+						onChange={handleOnChange('backgroundColor')}
 						title='цвет фона'
 					/>
 					<Select
-						selected={contentWidthArrState}
+						selected={state.contentWidth}
 						options={contentWidthArrOptions}
 						placeholder='Широкий'
-						onChange={handleContentWidthArrChange}
+						onChange={handleOnChange('contentWidth')}
 						title='ширина контента'
 					/>
 					<div className={styles.bottomContainer}>
