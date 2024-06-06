@@ -21,11 +21,11 @@ import { useOutsideClickClose } from 'components/select/hooks/useOutsideClickClo
 
 type FormStates = {
 	stylesSelected: {
-		backgroundColor: string;
 		fontFamily: string;
-		contentWidth: string;
 		fontSize: string;
 		fontColor: string;
+		backgroundColor: string;
+		contentWidth: string;
 	};
 	onResetClick: () => void;
 	onSubmitClick: (p: {

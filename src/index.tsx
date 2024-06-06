@@ -21,6 +21,14 @@ interface SelectedStyles {
 }
 
 const App = () => {
+	const [stylesSelected, setStylesSelected] = useState({
+		fontFamily: defaultArticleState.fontFamilyOption.value,
+		fontSize: defaultArticleState.fontSizeOption.value,
+		fontColor: defaultArticleState.fontColor.value,
+		backgroundColor: defaultArticleState.backgroundColor.value,
+		contentWidth: defaultArticleState.contentWidth.value,
+	});
+
 	const handleResetStyles = () => {
 		setStylesSelected({
 			fontFamily: defaultArticleState.fontFamilyOption.value,
@@ -30,14 +38,6 @@ const App = () => {
 			contentWidth: defaultArticleState.contentWidth.value,
 		});
 	};
-
-	const [stylesSelected, setStylesSelected] = useState({
-		fontFamily: defaultArticleState.fontFamilyOption.value,
-		fontSize: defaultArticleState.fontSizeOption.value,
-		fontColor: defaultArticleState.fontColor.value,
-		backgroundColor: defaultArticleState.backgroundColor.value,
-		contentWidth: defaultArticleState.contentWidth.value,
-	});
 
 	const handleFormSubmit = (selectedStyles: SelectedStyles) => {
 		setStylesSelected(selectedStyles);
