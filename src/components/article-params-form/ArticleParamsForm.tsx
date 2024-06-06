@@ -42,7 +42,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 		};
 	};
 
-	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+	const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		onSubmitClick({
 			fontFamily: state.fontFamilyOption.value,
@@ -83,7 +83,7 @@ export const ArticleParamsForm = (props: FormStates) => {
 		<>
 			<ArrowButton onClick={handleClick} state={isOpen} />
 			<aside className={asideContainerStyle} ref={ref}>
-				<form className={styles.form} onSubmit={handleSubmit}>
+				<form className={styles.form} onSubmit={handleFormSubmit}>
 					<Text as='h2' size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
