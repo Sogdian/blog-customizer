@@ -29,6 +29,10 @@ const App = () => {
 		contentWidth: defaultArticleState.contentWidth.value,
 	});
 
+	const handleFormSubmit = (selectedStyles: SelectedStyles) => {
+		setStylesSelected(selectedStyles);
+	};
+
 	const handleResetStyles = () => {
 		setStylesSelected({
 			fontFamily: defaultArticleState.fontFamilyOption.value,
@@ -37,10 +41,6 @@ const App = () => {
 			backgroundColor: defaultArticleState.backgroundColor.value,
 			contentWidth: defaultArticleState.contentWidth.value,
 		});
-	};
-
-	const handleFormSubmit = (selectedStyles: SelectedStyles) => {
-		setStylesSelected(selectedStyles);
 	};
 
 	return (
@@ -56,8 +56,8 @@ const App = () => {
 				} as CSSProperties
 			}>
 			<ArticleParamsForm
-				onResetClick={handleResetStyles}
 				onSubmitClick={handleFormSubmit}
+				onResetClick={handleResetStyles}
 			/>
 			<Article />
 		</div>

@@ -51,7 +51,6 @@ export const ArticleParamsForm = (props: FormStates) => {
 			backgroundColor: state.backgroundColor.value,
 			contentWidth: state.contentWidth.value,
 		});
-		setState(state);
 	};
 
 	const handleResetStyles = () => {
